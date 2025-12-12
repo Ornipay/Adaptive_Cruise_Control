@@ -16,7 +16,7 @@ uint32_t risingTime = 0;
 uint32_t fallingTime = 0;
 uint32_t distance = 0;
 
-// ****************************************** Initialization Functionality *******************************************
+// **************************************** Initialization Functionality *********************************************
 //
 //  Initializes necessary GPIO and Timers for ultrasonic sensor to work.
 //  Uses GPIO PortB Pins 6+7 & Uses Timer 0A+1A
@@ -87,7 +87,7 @@ void init_timer1A(void) {
     (*((volatile uint32_t *) (0xE000E100))) |= (1 << 21);       // Set bit [21] for Enable Interrupt 21
 }
 
-// *********************************************** Main Functionality ************************************************
+// ***************************************** Main Functionality ******************************************************
 //
 //  getDistance - Calls the sendTrig function & when both rising and falling edge are
 //                done, compute the pulse width to determine the travel time of the
@@ -108,8 +108,10 @@ int getDistance(void) {
             // Calculate the width of the pulse from Echo
             uint32_t pulseWidth = fallingTime - risingTime;
             // Convert pulse width to actual measurements
-            // (except I am trying to still figure out the conversion)
-            int centimeters = pulseWidth;
+            // Data Collected and determined [pulseWidth = 895(cm) + 3801]
+            // Therefore, solve to calculate the approximatation of centimeters
+            // This estimation is +/- 2cm precision (so it is somewhat close)
+            int centimeters = (pulseWidth - 3801) / 895;
 
             // Return the value so it can be used for PWM
             return centimeters;
@@ -124,7 +126,7 @@ void sendTrig(void) {
     (*((volatile uint32_t *) (0x4003100C))) |= 1;               // Set bit [0] for Enable
 }
 
-// ******************************************* Timer Handler Functionality *******************************************
+// **************************************** Timer Handler Functionality **********************************************
 //
 //  Timer0A_Handler - Captures the time between the Rising Edge of the Echo
 //                    and the Falling Edge of the Echo. This is the time it
