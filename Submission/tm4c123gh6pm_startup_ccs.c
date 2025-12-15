@@ -104,11 +104,15 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // ADC Sequence 2
     IntDefaultHandler,                      // ADC Sequence 3
     IntDefaultHandler,                      // Watchdog timer
-    Timer0A_Handler,                        // Timer 0 subtimer A
+    Timer0A_Handler,                        // Timer 0 subtimer A // 
     IntDefaultHandler,                      // Timer 0 subtimer B
-    Timer1A_Handler,                        // Timer 1 subtimer A
+    Timer1A_Handler,                        // Timer 1 subtimer A //
     IntDefaultHandler,                      // Timer 1 subtimer B
+<<<<<<< HEAD
     IntDefaultHandler,                        // Timer 2 subtimer A (ACC speed control)
+=======
+    Timer2A_Handler,                        // Timer 2 subtimer A (ACC speed control) //
+>>>>>>> 4de45ba00befa4e047f956079aa793363497eb64
     IntDefaultHandler,                      // Timer 2 subtimer B
     IntDefaultHandler,                      // Analog Comparator 0
     IntDefaultHandler,                      // Analog Comparator 1
